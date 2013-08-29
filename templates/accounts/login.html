@@ -1,0 +1,28 @@
+{% extends "accounts/base.html" %}
+
+{% block span8 %}
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if form.errors %}
+<div class="alert alert-error">
+{% for field in form %}
+    {% for error in field.errors %}
+    <p>{{ field.label }}{{ error }}</p>
+    {% endfor %}
+{% endfor %}
+</div>
+{% endif %}
+
+<form class="form-signin" method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <h3 class="form-signin-heading">登录</h3>
+        {{ form.username }}
+        {{ form.password }}
+        <input type="hidden" name="next" value="{{ next }}" />
+        <button type="submit" class="btn btn-large btn-primary">登录</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% load static %}
+{% with current_url=request.path %}
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta content="" name="description">
+    <title>{% block title %}c语言{% endblock %}</title>
+    <script src="{% static 'jquery-2.0.2.min.js' %}"></script>
+    {% block script %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    {% block css %}{% endblock %}
+  </head>
+<body>
+    <div class="container">
+        <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+        {# 这里url需要修改 #}
+          <li{% if current_url == "/" %} class="active"{% endif %}><a href="/">首页</a></li>
+          <li{% if current_url == "/step/list/" %} class="active"{% endif %}><a href="{% url 'course_list' %}">学习</a></li>
+          <li{% if current_url == "/exercise/list/" %} class="active"{% endif %}><a href="{% url 'exercise_list' %}">练习</a></li>
+          <li{% if current_url == "/about/" %} class="active"{% endif %}><a href="{% url 'about' %}">关于</a></li>
+        </ul>
+        <h3 class="muted">Learn C</h3>
+        </div>
+        <hr>
+
+        <div class="row">
+        {% block sidebar %}{% endblock %}
+        {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>
+{% endwith %}

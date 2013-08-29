@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% with current_url=request.path %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'learnc.css' %}">
+{% block css1 %}
+{% endblock %}
+{% endblock %}
+
+{% block sidebar %}
+<div class="span4 bs-docs-sidebar">
+        <ul class="nav nav-list bs-docs-sidenav">
+        {% if user.is_authenticated %}
+        
+        <li{% if current_url == "/accounts/profile/" %} class="active"{% endif %}><a href="{% url 'profile' %}"><i class="icon-chevron-right"></i> {{ user.username }}</a></li>
+        <li{% if current_url == "/accounts/password_change/" %} class="active"{% endif %}><a href="{% url 'password_change' %}"><i class="icon-chevron-right"></i> 修改密码</a></li>
+        <li{% if current_url == "/accounts/logout/" %} class="active"{% endif %}><a href="{% url 'logout' %}"><i class="icon-chevron-right"></i> 退出</a></li>
+        {% else %}
+        <li{% if current_url == "/accounts/login/" %} class="active"{% endif %}><a href="{% url 'login' %}"><i class="icon-chevron-right"></i> 登录</a></li>
+        <li{% if current_url == "/accounts/register/" %} class="active"{% endif %}><a href="{% url 'register' %}"><i class="icon-chevron-right"></i> 注册</a></li>
+        <li{% if current_url == "/accounts/findpassword/" %} class="active"{% endif %}><a href="{% url 'register' %}"><i class="icon-chevron-right"></i> 忘记密码</a></li>
+        {% endif %}
+          <li{% if current_url == "/step/list/" %} class="active"{% endif %}><a href="{% url 'course_list' %}"><i class="icon-chevron-right"></i> 课程学习</a></li>
+          <li{% if current_url == "/exercise/list/" %} class="active"{% endif %}><a href="{% url 'exercise_list' %}"><i class="icon-chevron-right"></i> 课后练习</a></li>
+          <li{% if current_url == "/about/" %} class="active"{% endif %}><a href="{% url 'about' %}"><i class="icon-chevron-right"></i> 关于</a></li>
+        </ul>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="span8">
+{% block span8 %}
+{% endblock %}
+</div>
+{% endblock %}
+
+{% endwith %}
